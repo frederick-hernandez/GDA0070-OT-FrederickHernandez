@@ -3,6 +3,7 @@ const cors = require("cors");
 const sequelize = require('./config/db.config.js');
 const estadosRoutes = require('./routes/estados.routes.js');
 const productosRoutes = require('./routes/productos.routes.js');
+const usuariosRoutes = require('./routes/usuarios.routes.js');
 const app = express();
 
 
@@ -22,4 +23,5 @@ app.get('/', async (req, res) => {
 
 app.use('/estados',estadosRoutes);
 app.use('/productos',productosRoutes);
+app.use('/usuarios',usuariosRoutes);
 module.exports = app;
