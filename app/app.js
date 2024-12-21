@@ -7,7 +7,7 @@ const app = express();
 
 
 app.use(express.json());
-app.use(cors());
+app.use(cors()); // Habilita CORS
 
 app.get('/', async (req, res) => {
     try{
