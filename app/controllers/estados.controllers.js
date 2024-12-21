@@ -1,9 +1,8 @@
-const { insertarEstados } = require("../services/estados.services");
-
+const estadosServices = require("../services/estados.services");
 exports.create = async (req, res) => {
   try {
     const { nombre } = req.body;
-    await insertarEstados(nombre);
+    await estadosServices.insertarEstados(nombre);
     res.status(201).json({
       message: "Estados insertado correctamente",
     });
@@ -15,4 +14,19 @@ exports.create = async (req, res) => {
   }
 };
 
+exports.edit = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const {nombre } = req.body;
+    await estadosServices.editEstados(id, nombre);
+    res.status(200).json({
+      message: "Estados editado correctamente",
+    });
+  } catch (error) {
+    console.error("Error al editar estados", error);
+    res.status(500).json({
+      message: "Error al editar estados",
+    });
+  }
+};
 

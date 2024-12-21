@@ -1,9 +1,11 @@
-const {executeStoredProcedure}= require('../config/db.utils.js');
+const { executeStoredProcedure } = require("../config/db.utils.js");
 
-
-const insertarEstados= async (nombre) => {
-        const parameters = `@nombre=${nombre} `;
-        return await executeStoredProcedure('insertarEstados', parameters);
+exports.insertarEstados = async (nombre) => {
+  const parameters = {nombre};
+  return await executeStoredProcedure("insertarEstados @nombre=:nombre", parameters);
 };
 
-module.exports = {insertarEstados};
+exports.editEstados = async (idEstados, nombre) => {
+  const parameters ={idEstados, nombre};
+  return await executeStoredProcedure("editarEstados @idEstados=:idEstados,@nombre=:nombre", parameters);
+};
