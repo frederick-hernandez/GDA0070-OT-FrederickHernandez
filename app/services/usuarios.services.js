@@ -15,12 +15,14 @@ exports.editarUsuarios = async (idUsuarios,idRol,idEstados,email,nombreCompleto,
 exports.correoExiste = async (email) => {
     try{
         parameters = {email};
-        const password = await executeStoredProcedureSelect("SesionUsuario @email=:email", parameters);
-        if(password.length > 0){
-            return password[0].password;
+        const usuario = await executeStoredProcedureSelect("SesionUsuario @email=:email", parameters);
+        if(usuario.length > 0){
+            return usuario[0];
         }
     }
     catch(error){
         console.error("Error al buscar usuario por correo", error);
     }
 };
+
+

@@ -78,13 +78,13 @@ exports.login = async (req, res) => {
       });
     }
 
-    const passHasshed = await usuariosServices.correoExiste(email);
-    if (!passHasshed) {
+    const usuario = await usuariosServices.correoExiste(email);
+    if (!usuario) {
       return res.status(401).json({
         message: "Usuario no encontrado",
       });
     }
-    const match = await compare(password, passHasshed);
+    const match = await compare(password, usuario.password);
     if (!match) {
       return res.status(401).json({
         message: "Contraseña incorrecta",
