@@ -1,6 +1,6 @@
 const usuariosServices = require("../services/usuarios.services");
 const { encrypt, compare } = require("../helpers/encrypt");
-
+const { tokensign } = require("../helpers/generateTokens");
 exports.create = async (req, res) => {
   try {
     const {
@@ -79,6 +79,7 @@ exports.login = async (req, res) => {
     }
 
     const usuario = await usuariosServices.correoExiste(email);
+    const tokenSession = await tokensign(usuario);
     if (!usuario) {
       return res.status(401).json({
         message: "Usuario no encontrado",
@@ -93,6 +94,7 @@ exports.login = async (req, res) => {
 
     return res.json({
       message: "Login exitoso",
+      token: tokenSession
     });
   } catch (error) {
     console.error("Error al hacer login", error);
